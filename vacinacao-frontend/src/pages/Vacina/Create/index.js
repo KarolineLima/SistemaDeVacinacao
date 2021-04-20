@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Form, FormGroup, Label, Input, Button} from 'reactstrap';
+import { Container, Form, FormGroup, Label, Input, Button} from 'reactstrap';
+import Header from '../../../components/Header';
 import api from '../../../services/api';
 import { useHistory } from 'react-router-dom';
 import './style.css';
@@ -20,30 +21,38 @@ function Create() {
     }
   }
   return (
-    <Form onSubmit={handleCadastro}>
-        <FormGroup row>
-            <Label for="nome" sm={2}>Nome</Label>
-            <Input 
-              type="text" 
-              name="nome" 
-              id="nome" 
-              placeholder="Ex: Coronavac"
-              onChange={e => setNome(e.target.value)}  
-            />
-        </FormGroup>
-        <FormGroup row>
-            <Label for="totalDoses" sm={2}>Total de Doses</Label>
-            <Input 
-              type="number" 
-              name="totalDoses" 
-              id="totalDoses" 
-              placeholder="Ex: 150"
-              onChange={e => setTotalDoses(e.target.value)}
-            />
-        </FormGroup>
+    <>
+      <Header/>
+      <h1 className="text-center"> Cadastrar Nova Vacina</h1>
+      <Container>
+
         
-        <Button>Cadastrar</Button>
-    </Form>
+      <Form onSubmit={handleCadastro}>
+          <FormGroup row>
+              <Label for="nome" sm={2}>Nome</Label>
+              <Input 
+                type="text" 
+                name="nome" 
+                id="nome" 
+                placeholder="Ex: Coronavac"
+                onChange={e => setNome(e.target.value)}  
+              />
+          </FormGroup>
+          <FormGroup row>
+              <Label for="totalDoses" sm={2}>Total de Doses</Label>
+              <Input 
+                type="number" 
+                name="totalDoses" 
+                id="totalDoses" 
+                placeholder="Ex: 150"
+                onChange={e => setTotalDoses(e.target.value)}
+              />
+          </FormGroup>
+          
+          <Button>Cadastrar</Button>
+      </Form>
+    </Container>
+    </>
   )
 };
 
