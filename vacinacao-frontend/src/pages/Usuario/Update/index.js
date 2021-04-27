@@ -7,8 +7,8 @@ function Update() {
       <>
         <Header/>
         <h1 className="text-center">Atualizar Usuário</h1>
-        <Container>
-            <Form>
+        <Container className="container-user">
+            <Form fluid className="w-50">
                 <FormGroup>
                     <Label for="nome"></Label>
                     <Input type="text" name="nome" id="nome"/>
@@ -33,7 +33,7 @@ function Update() {
                     <Label for="email"></Label>
                     <Input type="email" name="email" id="email"/>
                 </FormGroup>
-                <Button>Salvar</Button>
+                <Button type="submit" className="btn-user">Salvar</Button>
             </Form>
         </Container>
       </>

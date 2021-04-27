@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { BsBoxArrowInRight } from 'react-icons/bs';
+import './style.css';
 import {
   Collapse,
   Navbar,
@@ -23,7 +25,7 @@ function Header() {
 
   return (
     <div>
-      <Navbar color="primary" dark expand="md">
+      <Navbar dark expand="md">
         <NavbarBrand><h1>Vaccine</h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -71,7 +73,12 @@ function Header() {
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>
-          <NavbarText><Button color="secondary">Logout</Button></NavbarText>
+          <NavbarText>
+            Name
+            <Button color="link" className="btn-logout">
+              <BsBoxArrowInRight size={20} color="#FFF"/>
+            </Button>
+          </NavbarText>
         </Collapse>
       </Navbar>
     </div>

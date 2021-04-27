@@ -3,6 +3,9 @@ import { Table, Container } from 'reactstrap';
 import {Link} from 'react-router-dom';
 import api from '../../../services/api';
 import Header from '../../../components/Header';
+import {MdEdit} from 'react-icons/md';
+import {IoMdTrash} from 'react-icons/io';
+import './style.css';
 
 function List() {
 
@@ -31,26 +34,27 @@ function List() {
             <tbody>
               {vacinas?.map(vacina => (
                 <tr key={vacina.id}>
-                  <th scope="row">vacina.id</th>
-                  <td>vacina.nome</td>
-                  <td>vacina.totalDoses</td>
-                  <td><Link to={`/vacinas/editar/${vacina.id}`}>Editar</Link></td>
-                  <td>Excluir</td>
+                  <th scope="row">1</th>
+                  <td>Coronavac</td>
+                  <td>150</td>
+                  <td><Link to={`/vacinas/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
+                  <td><Link to={`/usuarios/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
+                  <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>
               ))}
-              <tr>
-                  <th scope="row">vacinas?.id</th>
-                  <td>vacinas?.nome</td>
-                  <td>vacinas?.totalDoses</td>
-                  <td><Link to={`/vacinas/editar/${vacinas?.id}`}>Editar</Link></td>
-                  <td>Excluir</td>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Coronavac</td>
+                  <td>150</td>
+                  <td><Link to={`/usuarios/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
+                  <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>
                 <tr>
-                  <th scope="row">vacinas?.id</th>
-                  <td>vacinas?.nome</td>
-                  <td>vacinas?.totalDoses</td>
-                  <td>Editar</td>
-                  <td>Excluir</td>
+                  <th scope="row">2</th>
+                  <td>Astrazenca</td>
+                  <td>200</td>
+                  <td><Link to={`/usuarios/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
+                  <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>
             </tbody>
           </Table>
