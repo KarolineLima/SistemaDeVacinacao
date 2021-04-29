@@ -38,7 +38,6 @@ function List() {
                   <td>Coronavac</td>
                   <td>150</td>
                   <td><Link to={`/vacinas/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
-                  <td><Link to={`/usuarios/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
                   <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>
               ))}
@@ -46,14 +45,14 @@ function List() {
                   <th scope="row">1</th>
                   <td>Coronavac</td>
                   <td>150</td>
-                  <td><Link to={`/usuarios/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
+                  <td><Link to={`/vacinas/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
                   <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>
                 <tr>
                   <th scope="row">2</th>
                   <td>Astrazenca</td>
                   <td>200</td>
-                  <td><Link to={`/usuarios/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
+                  <td><Link to={`/vacinas/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
                   <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>
             </tbody>
