@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'localhost:8080/api-vacinacao',
+    baseURL: 'http://localhost:8080/api-vacinacao',
 })
 
 export default api;

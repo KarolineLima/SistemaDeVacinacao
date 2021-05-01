@@ -16,12 +16,12 @@ function Login() {
   return (
       <>
         <Navbar dark expand="md" fluid={true}>
-            <NavbarBrand fluid={true}><h1>Vaccine</h1></NavbarBrand>
+            <NavbarBrand fluid={true}><h1 class="home">Vaccine</h1></NavbarBrand>
         </Navbar>
 
         <Container fluid className="container-login">
-            <h1 className="text-sm-center text-white login">Vaccine</h1>
             <Form fluid className="form-login">
+            <h1 className="text-sm-center text-white login">Acessar</h1>
                 <FormGroup row>
                     <Col>
                         <Input type="text" 
@@ -43,6 +43,10 @@ function Login() {
                 <Button type="submit" className="btn-login">
                     Login
                 </Button>
+                <div class="link-cadastro">
+                    <p>Ainda não realizou seu cadastro? -----LINK----</p>
+                </div>
+                
             </Form>
         </Container>
       </>

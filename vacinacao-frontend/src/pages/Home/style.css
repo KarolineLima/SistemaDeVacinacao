@@ -2,15 +2,45 @@
     border-radius: 1rem;
     width: 11rem;
 }
-a {
-    color: #168F9E;
+
+.login:hover{
+    background-color: #2BA8EA;
+    border-color: #2BA8EA;
+    text-shadow: white 0.1em 0.1em 0.2em;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
-nav {
-    background-color: #168F9E;
-}
+
 .login {
     background-color: #2BA8EA;
+    border-color: #2BA8EA;
 }
+
+
+a,a:hover, a:link, a:visited,a:active  {
+	text-decoration: none;
+    color:#168F9E;
+    border-color: white;
+}
+
+.cadastro:hover, .cadastro:active, .cadastro:visited, .cadastro::after{
+    background-color:white;
+    border-color: white;
+    text-shadow: #5A86A1 0.1em 0.1em 0.2em;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.cadastro{
+    background-color:white;
+    border-color: white;
+    color: #168F9E;
+}
+
+
+h1.home{
+    text-shadow: white 0.1em 0.1em 0.2em;
+    color:white;
+}
+
 .home-container {
     display: flex;
     flex-direction: column;
@@ -34,6 +64,7 @@ nav {
     margin-right: -100px;
     margin-left: 100px;
     padding-top: 80px;
+    border-radius: 20px;
 }
 .home-container div:last-child {
     width: 250px;

@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import './style.css';
 
 function Create() {
-  const [nome, setNome] = useState();
+  const [nomeVacina, setNomeVacina] = useState();
   const [totalDoses, setTotalDoses] = useState();
   const history = useHistory();
 
@@ -14,7 +14,7 @@ function Create() {
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.post('vacinas', {nome, totalDoses});
+      const response = await api.post('vacinas', {nomeVacina, totalDoses});
       history.push('/vacinas')
     } catch (error) {
       console.log(error)
@@ -23,17 +23,17 @@ function Create() {
   return (
     <>
       <Header/>
-      <h1 className="text-center"> Cadastrar Nova Vacina</h1>
+      <h1 className="text-center">Cadastrar Nova Vacina</h1>
       <Container fluid className="container-vacina">
         <Form fluid onSubmit={handleCadastro} className="w-50">
             <FormGroup row>
-                <Label for="nome" sm={2}>Nome</Label>
+                <Label for="nomeVacina" sm={2}>Nome</Label>
                 <Input 
                   type="text" 
-                  name="nome" 
-                  id="nome" 
+                  name="nomeVacina" 
+                  id="nomeVacina" 
                   placeholder="Ex: Coronavac"
-                  onChange={e => setNome(e.target.value)}  
+                  onChange={e => setNomeVacina(e.target.value)}  
                 />
             </FormGroup>
             <FormGroup row>

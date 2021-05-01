@@ -12,7 +12,7 @@ function List() {
       <h1 className="text-center">Usuários Cadastrados</h1>
       <Container fluid>
         <Table striped>
-          <thead>
+          <thead class="lista-vacina">
             <tr>
               <th>#</th>
               <th>Nome da Vacina</th>

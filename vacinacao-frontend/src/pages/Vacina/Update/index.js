@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import './style.css';
 
 function Update() {
-  const [nome, setNome] = useState();
+  const [nomeVacina, setNomeVacina] = useState();
   const [totalDoses, setTotalDoses] = useState();
   const {id} = useParams();
   const history = useHistory();
@@ -14,14 +14,14 @@ function Update() {
   useEffect(() => {
       api.get('vacinas/'.concat(id)).then(response => {
           setTotalDoses(response.totalDoses);
-          setNome(response.nome);
+          setNomeVacina(response.nomeVacina);
       })
   }, [id]);
 
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.put('vacinas'.concat(id), {nome, totalDoses});
+      const response = await api.put('vacinas'.concat(id), {nomeVacina, totalDoses});
     } catch (error) {
       history.pushState('/vacinas')
     }
@@ -33,20 +33,22 @@ function Update() {
       <Container className="container-vacina">          
         <Form fluid className="w-50" onSubmit={handleCadastro}>
             <FormGroup row>
-                <Label for="nome" sm={2} value={nome}></Label>
+                <Label for="nomeVacina" sm={2} value={nomeVacina}> Nome</Label>
                 <Input 
                   type="text" 
-                  name="nome" 
-                  id="nome" 
-                  onChange={e => setNome(e.target.value)}  
+                  name="nomeVacina" 
+                  id="nomeVacina" 
+                  placeholder="Ex: Coronavac"
+                  onChange={e => setNomeVacina(e.target.value)}  
                 />
             </FormGroup>
             <FormGroup row>
-                <Label for="totalDoses" sm={2} value={totalDoses}></Label>
+                <Label for="totalDoses" sm={6} value={nomeVacina}>Total de Doses</Label>
                 <Input 
                   type="number" 
                   name="totalDoses" 
                   id="totalDoses"
+                  placeholder="Ex: 150"
                   onChange={e => setTotalDoses(e.target.value)}
                 />
             </FormGroup>
