@@ -24,34 +24,32 @@ function Create() {
     <>
       <Header/>
       <h1 className="text-center"> Cadastrar Nova Vacina</h1>
-      <Container>
-
-        
-      <Form onSubmit={handleCadastro}>
-          <FormGroup row>
-              <Label for="nome" sm={2}>Nome</Label>
-              <Input 
-                type="text" 
-                name="nome" 
-                id="nome" 
-                placeholder="Ex: Coronavac"
-                onChange={e => setNome(e.target.value)}  
-              />
-          </FormGroup>
-          <FormGroup row>
-              <Label for="totalDoses" sm={2}>Total de Doses</Label>
-              <Input 
-                type="number" 
-                name="totalDoses" 
-                id="totalDoses" 
-                placeholder="Ex: 150"
-                onChange={e => setTotalDoses(e.target.value)}
-              />
-          </FormGroup>
-          
-          <Button>Cadastrar</Button>
-      </Form>
-    </Container>
+      <Container fluid className="container-vacina">
+        <Form fluid onSubmit={handleCadastro} className="w-50">
+            <FormGroup row>
+                <Label for="nome" sm={2}>Nome</Label>
+                <Input 
+                  type="text" 
+                  name="nome" 
+                  id="nome" 
+                  placeholder="Ex: Coronavac"
+                  onChange={e => setNome(e.target.value)}  
+                />
+            </FormGroup>
+            <FormGroup row>
+                <Label for="totalDoses" sm={6}>Total de Doses</Label>
+                <Input 
+                  type="number" 
+                  name="totalDoses" 
+                  id="totalDoses" 
+                  placeholder="Ex: 150"
+                  onChange={e => setTotalDoses(e.target.value)}
+                />
+            </FormGroup>
+            
+            <Button type="submit" className="btn-vacina">Cadastrar</Button>
+        </Form>
+      </Container>
     </>
   )
 };

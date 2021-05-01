@@ -30,8 +30,8 @@ function Update() {
     <>
       <Header/>
       <h1 className="text-center">Atualizar Vacina</h1>
-      <Container>          
-        <Form onSubmit={handleCadastro}>
+      <Container className="container-vacina">          
+        <Form fluid className="w-50" onSubmit={handleCadastro}>
             <FormGroup row>
                 <Label for="nome" sm={2} value={nome}></Label>
                 <Input 
@@ -51,7 +51,7 @@ function Update() {
                 />
             </FormGroup>
             
-            <Button>Atualizar</Button>
+            <Button type="submit" className="btn-vacina">Atualizar</Button>
         </Form>
     </Container>
     </>
