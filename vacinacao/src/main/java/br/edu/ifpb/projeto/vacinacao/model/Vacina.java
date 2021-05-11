@@ -13,7 +13,7 @@ public class Vacina {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idVacina;
-	private String nomeVacina; //criar enum
+	private String nomeVacina;
 	private int totalDoses;
 
 	
@@ -33,7 +33,15 @@ public class Vacina {
 	public void setTotalDoses(int totalDoses) {
 		this.totalDoses = totalDoses;
 	}
+
+	public Long getIdVacina() {
+		return idVacina;
+	}
+
+	public void setIdVacina(Long idVacina) {
+		this.idVacina = idVacina;
+	}
 	
-	
+
 	
 }

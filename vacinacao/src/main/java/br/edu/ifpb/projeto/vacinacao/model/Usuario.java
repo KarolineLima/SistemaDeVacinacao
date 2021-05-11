@@ -91,5 +91,12 @@ public class Usuario {
 		this.senha = senha;
 	}
 	
+	public Long getIdUsuario() {
+		return idUsuario;
+	}
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+	
 	
 }
