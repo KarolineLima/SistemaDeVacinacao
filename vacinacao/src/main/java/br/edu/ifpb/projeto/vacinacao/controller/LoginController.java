@@ -16,7 +16,6 @@ public class LoginController {
 	@Autowired
 	private LoginService loginService;
 	
-	
 	@GetMapping("/{usuario}")
 	public Usuario login(@PathVariable("usuario") Usuario usuario) {
 		Usuario user = loginService.findByLogin(usuario);
