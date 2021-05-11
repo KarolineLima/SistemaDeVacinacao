@@ -13,6 +13,9 @@ import {
 import './style.css';
 
 function Login() {
+    async function handleSubmit(e){
+        e.preventDefault();
+    }
   return (
       <>
         <Navbar dark expand="md" fluid={true}>
@@ -20,7 +23,7 @@ function Login() {
         </Navbar>
 
         <Container fluid className="container-login">
-            <Form fluid className="form-login">
+            <Form fluid className="form-login" onSubmit={handleSubmit}>
             <h1 className="text-sm-center text-white login">Acessar</h1>
                 <FormGroup row>
                     <Col>
