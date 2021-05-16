@@ -25,7 +25,7 @@ function Create() {
       <Container fluid className="container-vacina">
         <Form fluid onSubmit={handleCadastro} className="w-50">
               <FormGroup row>
-                  <Label for={calendario} sm={2}>Data Inicial:</Label>
+                  <Label for="data1" sm={2}>Data Inicial:</Label>
                   <Input 
                     type="date" 
                     name="data1" 
@@ -41,14 +41,23 @@ function Create() {
                   />
               </FormGroup>            
               <FormGroup row>
-                  <Label for="idade" sm={2}>Idade:</Label>
+                  <Label for="idade" sm={3}>Idade Inicial:</Label>
                   <Input 
-                    type="text" 
+                    type="number" 
                     name="idade" 
                     id="idade" 
-                    placeholder="50-90" 
+                    placeholder="50" 
                   />
-              </FormGroup>            
+              </FormGroup>
+              <FormGroup row>
+                  <Label for="idade" sm={2}>Idade Final:</Label>
+                  <Input 
+                    type="number" 
+                    name="idade" 
+                    id="idade" 
+                    placeholder="50" 
+                  />
+              </FormGroup>              
             <Button type="submit" className="btn-vacina">Cadastrar</Button>
         </Form>
       </Container>

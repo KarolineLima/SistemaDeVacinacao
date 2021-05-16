@@ -1,20 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {useHistory} from 'react-router-dom';
 
 import {
     Navbar, 
     NavbarBrand, 
     Form, 
-    FormGroup, 
-    Label, 
+    FormGroup,  
     Input, 
     Button,
     Col,
     Container} from 'reactstrap';
+import api from '../../services/api';
 import './style.css';
 
 function Login() {
+    const [Login, setLogin] = useState('');
+    const [Password, setPassword] = useState('');
+    const history = useHistory();
+    
     async function handleSubmit(e){
         e.preventDefault();
+        try {
+            const response = await api.get('', {Login, Password})
+            if(response.data.user){
+                history.push('/dashboard');
+            }
+        } catch (error) {
+            alert('Falha no Login, tente Novamente.')
+        }
     }
   return (
       <>
@@ -31,7 +44,8 @@ function Login() {
                         name="nome" 
                         id="nome" 
                         placeholder="E-mail"
-                        className="input-login"/>
+                        className="input-login"
+                        onChange={e => setLogin(e.target.value)}/>
                     </Col>
                 </FormGroup>
                 <FormGroup row>
@@ -40,7 +54,8 @@ function Login() {
                         name="senha" 
                         id="senha" 
                         placeholder="Senha"
-                        className="input-login"/>
+                        className="input-login"
+                        onChange={e => setPassword(e.target.value)}/>
                     </Col>
                 </FormGroup>
                 <Button type="submit" className="btn-login">
@@ -49,7 +64,6 @@ function Login() {
                 <div class="link-cadastro">
                     <p>Ainda não realizou seu cadastro? -----LINK----</p>
                 </div>
-                
             </Form>
         </Container>
       </>

@@ -72,6 +72,20 @@ function Header() {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Calendários
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <Link to="/calendario">Calendários Cadastrados</Link>
+                </DropdownItem>
+                <DropdownItem>
+                  <Link to="/calendario/novo">Cadastrar Calendário</Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+
           </Nav>
           <NavbarText>
             Name
