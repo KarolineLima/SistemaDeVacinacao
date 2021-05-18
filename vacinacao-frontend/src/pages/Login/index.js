@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom';
-
+import MD5 from 'crypto-js/md5';
 import {
     Navbar, 
     NavbarBrand, 
@@ -21,6 +21,8 @@ function Login() {
     async function handleSubmit(e){
         e.preventDefault();
         try {
+            const senha = MD5(Password);
+            console.log(senha)
             const response = await api.get('', {Login, Password})
             if(response.data.user){
                 history.push('/dashboard');

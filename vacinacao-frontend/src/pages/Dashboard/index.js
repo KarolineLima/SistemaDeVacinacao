@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header';
+import api from '../../services/api';
 import { 
   Container,
   Row,
@@ -9,6 +10,14 @@ import {
 import './style.css';
 
 function Dashboard() {
+  const [values, setValues] = useState();
+  
+  useEffect(() => {
+    api.get('/dashboard').then(response => {
+      setValues(response.data);
+    })
+  }, [values]);
+
   return (
       <>
         <Header/>
@@ -18,14 +27,14 @@ function Dashboard() {
               <div>
                   Usuários cadastrados atualmente
                   <br/>
-                  500       
+                  {values?.usuaarios}  
               </div>
             </Col>
             <Col>
               <div>
                   Vacinas cadastradas atualmente
                   <br/>
-                  500
+                  {values?.vacinas}
               </div>
             </Col>
           </Row>
@@ -34,7 +43,7 @@ function Dashboard() {
               <div>
                 Vacinações Cadastradas
                 <br />
-                500
+                {values?.vacinacoes}
               </div>
             </Col>
           </Row>
