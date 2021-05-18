@@ -45,6 +45,7 @@ function Login() {
                         id="nome" 
                         placeholder="E-mail"
                         className="input-login"
+                        required
                         onChange={e => setLogin(e.target.value)}/>
                     </Col>
                 </FormGroup>
@@ -55,6 +56,7 @@ function Login() {
                         id="senha" 
                         placeholder="Senha"
                         className="input-login"
+                        required
                         onChange={e => setPassword(e.target.value)}/>
                     </Col>
                 </FormGroup>

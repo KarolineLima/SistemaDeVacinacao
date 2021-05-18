@@ -39,6 +39,7 @@ function Update() {
                   name="nomeVacina" 
                   id="nomeVacina" 
                   placeholder="Ex: Coronavac"
+                  required
                   onChange={e => setNomeVacina(e.target.value)}  
                 />
             </FormGroup>
@@ -49,6 +50,7 @@ function Update() {
                   name="totalDoses" 
                   id="totalDoses"
                   placeholder="Ex: 150"
+                  required
                   onChange={e => setTotalDoses(e.target.value)}
                 />
             </FormGroup>

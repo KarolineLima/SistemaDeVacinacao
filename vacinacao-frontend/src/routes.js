@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Calendario from './pages/Calendario/List';
 import CalendarioNovo from './pages/Calendario/Create';
+import CalendarioEditar from './pages/Calendario/Update';
 import RVacinados from './pages/Relatorios/vacinados';
 import RVacinacao from './pages/Relatorios/vacinacao';
 import Dashboard from './pages/Dashboard';
@@ -47,6 +48,7 @@ export default function Routes(){
                 {/*rotas de calendario */}
                 <Route path="/calendario" exact component={Calendario}/>
                 <Route path="/calendario/novo" exact component={CalendarioNovo}/>
+                <Route path="/calendario/editar/:id" exact component={CalendarioEditar}/>
                 {/*rotas de calendario */}
 
                 {/*rotas de relatórios */}

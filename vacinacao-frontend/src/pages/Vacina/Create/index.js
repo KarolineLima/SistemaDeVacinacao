@@ -33,6 +33,7 @@ function Create() {
                   name="nomeVacina" 
                   id="nomeVacina" 
                   placeholder="Ex: Coronavac"
+                  required
                   onChange={e => setNomeVacina(e.target.value)}  
                 />
             </FormGroup>
@@ -43,6 +44,7 @@ function Create() {
                   name="totalDoses" 
                   id="totalDoses" 
                   placeholder="Ex: 150"
+                  required
                   onChange={e => setTotalDoses(e.target.value)}
                 />
             </FormGroup>

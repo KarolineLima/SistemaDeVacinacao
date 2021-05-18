@@ -29,7 +29,8 @@ function Create() {
                   <Input 
                     type="date" 
                     name="data1" 
-                    id="data1" 
+                    id="data1"
+                    required
                   />
               </FormGroup>            
               <FormGroup row>
@@ -37,7 +38,8 @@ function Create() {
                   <Input 
                     type="date" 
                     name="data2" 
-                    id="data2" 
+                    id="data2"
+                    required 
                   />
               </FormGroup>            
               <FormGroup row>
@@ -46,7 +48,8 @@ function Create() {
                     type="number" 
                     name="idade" 
                     id="idade" 
-                    placeholder="50" 
+                    placeholder="50"
+                    required 
                   />
               </FormGroup>
               <FormGroup row>
@@ -55,7 +58,8 @@ function Create() {
                     type="number" 
                     name="idade" 
                     id="idade" 
-                    placeholder="50" 
+                    placeholder="50"
+                    required 
                   />
               </FormGroup>              
             <Button type="submit" className="btn-vacina">Cadastrar</Button>
