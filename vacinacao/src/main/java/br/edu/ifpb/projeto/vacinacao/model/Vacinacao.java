@@ -1,12 +1,11 @@
 package br.edu.ifpb.projeto.vacinacao.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,10 +24,10 @@ public class Vacinacao {
 	private Long usuario;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
-	private Date primeiraDose;
+	private LocalDate primeiraDose;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
-	private Date segundaDose;
+	private LocalDate segundaDose;
 	private String localVacinacao;
 	
 	
@@ -67,22 +66,22 @@ public class Vacinacao {
 	}
 
 
-	public Date getPrimeiraDose() {
+	public LocalDate getPrimeiraDose() {
 		return primeiraDose;
 	}
 
 
-	public void setPrimeiraDose(Date primeiraDose) {
+	public void setPrimeiraDose(LocalDate primeiraDose) {
 		this.primeiraDose = primeiraDose;
 	}
 
 
-	public Date getSegundaDose() {
+	public LocalDate getSegundaDose() {
 		return segundaDose;
 	}
 
 
-	public void setSegundaDose(Date segundaDose) {
+	public void setSegundaDose(LocalDate segundaDose) {
 		this.segundaDose = segundaDose;
 	}
 

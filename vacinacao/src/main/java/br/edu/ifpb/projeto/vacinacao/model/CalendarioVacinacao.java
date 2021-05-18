@@ -1,7 +1,6 @@
 package br.edu.ifpb.projeto.vacinacao.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,19 +16,14 @@ public class CalendarioVacinacao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idCalendarioVacinacao;
 	
-	private List dataPorFaixaEtaria = new ArrayList();
+	LocalDate dataInicio;
+	LocalDate dataFinal;
+	int faixaEtariaInicial;
+	int faixaEtariaFinal;
 	private boolean obsoleto;
 
 	public CalendarioVacinacao() {
 		
-	}
-
-	public List getDataPorFaixaEtaria() {
-		return dataPorFaixaEtaria;
-	}
-
-	public void setDataPorFaixaEtaria(List dataPorFaixaEtaria) {
-		this.dataPorFaixaEtaria = dataPorFaixaEtaria;
 	}
 
 	public Long getIdCalendarioVacinacao() {
@@ -38,6 +32,38 @@ public class CalendarioVacinacao {
 
 	public void setIdCalendarioVacinacao(Long idCalendarioVacinacao) {
 		this.idCalendarioVacinacao = idCalendarioVacinacao;
+	}
+
+	public LocalDate getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(LocalDate dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public LocalDate getDataFinal() {
+		return dataFinal;
+	}
+
+	public void setDataFinal(LocalDate dataFinal) {
+		this.dataFinal = dataFinal;
+	}
+
+	public int getFaixaEtariaInicial() {
+		return faixaEtariaInicial;
+	}
+
+	public void setFaixaEtariaInicial(int faixaEtariaInicial) {
+		this.faixaEtariaInicial = faixaEtariaInicial;
+	}
+
+	public int getFaixaEtariaFinal() {
+		return faixaEtariaFinal;
+	}
+
+	public void setFaixaEtariaFinal(int faixaEtariaFinal) {
+		this.faixaEtariaFinal = faixaEtariaFinal;
 	}
 
 	public boolean isObsoleto() {
@@ -49,5 +75,5 @@ public class CalendarioVacinacao {
 	}
 
 	
-	
+
 }

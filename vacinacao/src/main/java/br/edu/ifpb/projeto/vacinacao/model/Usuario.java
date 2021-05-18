@@ -18,7 +18,7 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idUsuario;
 	private String nome;
-	private String idade;
+	private int idade;
 	
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date dataNascimento;
@@ -28,6 +28,7 @@ public class Usuario {
 	private String tipo;
 	private String login;
 	private String senha;
+	private String senhaVacina;
 	
 	
 	
@@ -42,10 +43,10 @@ public class Usuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getIdade() {
+	public int getIdade() {
 		return idade;
 	}
-	public void setIdade(String idade) {
+	public void setIdade(int idade) {
 		this.idade = idade;
 	}
 	public Date getDataNascimento() {
@@ -97,6 +98,17 @@ public class Usuario {
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
+
+	public String getSenhaVacina() {
+		return senhaVacina;
+	}
+
+
+	public void setSenhaVacina(String senhaVacina) {
+		this.senhaVacina = senhaVacina;
+	}
+	
 	
 	
 }

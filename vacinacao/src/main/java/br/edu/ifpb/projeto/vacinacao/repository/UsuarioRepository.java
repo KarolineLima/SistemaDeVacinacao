@@ -8,7 +8,7 @@ import br.edu.ifpb.projeto.vacinacao.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
-	@Query("from Usuario t where t.email = :login")
+	@Query("from Usuario u where u.email = :login")
 	Usuario findByLogin(@Param("login") String login);
 
 }

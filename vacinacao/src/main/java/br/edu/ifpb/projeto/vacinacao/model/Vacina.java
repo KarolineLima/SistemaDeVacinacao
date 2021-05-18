@@ -15,6 +15,7 @@ public class Vacina {
 	private Long idVacina;
 	private String nomeVacina;
 	private int totalDoses;
+	private Long intervalo;
 
 	
 	public Vacina() {
@@ -40,6 +41,14 @@ public class Vacina {
 
 	public void setIdVacina(Long idVacina) {
 		this.idVacina = idVacina;
+	}
+
+	public Long getIntervalo() {
+		return intervalo;
+	}
+
+	public void setIntervalo(Long intervalo) {
+		this.intervalo = intervalo;
 	}
 	
 
