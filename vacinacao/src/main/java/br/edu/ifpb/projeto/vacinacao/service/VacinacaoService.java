@@ -1,12 +1,12 @@
 package br.edu.ifpb.projeto.vacinacao.service;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,35 +42,24 @@ public class VacinacaoService {
 		int FaixaEtariaInicial = calendario.getFaixaEtariaInicial();
 		int FaixaEtariaFinal = calendario.getFaixaEtariaFinal();
 
+		long periodoCalendario = ChronoUnit.DAYS.between(dataInicial, dataFinal);
+		
 		List<Vacina> vacinas = vacinaService.findAll();
 		List<Usuario> usuarios = usuarioService.findAll();
 
-		int count = 0;
-		
 		for (int v = 0; v <= vacinas.size(); v++) {
 
 			Vacina vacina = vacinas.get(v);
-			int total = vacina.getTotalDoses();
+			int totalDoses = vacina.getTotalDoses();
 
-			for (int u = 0; u <= total; u++) {
+			long mediaDosesDiarias = totalDoses/periodoCalendario;
+			
+			for (int u = 0; u <= totalDoses; u++) {
 				Usuario usuario = usuarios.get(u);
 				
 				if ( usuario.getIdade() >= FaixaEtariaInicial && usuario.getIdade() <= FaixaEtariaFinal ) {
 				
 					if(usuario.getSenhaVacina() == null) {
-
-						int media = ControleDiarioDoses(total);
-												
-						if(count > media) {
-							count = 0;	
-						}
-						count ++;
-						
-						
-						
-						
-						
-						
 						
 						Vacinacao vacinacao = new Vacinacao();
 					
@@ -83,10 +72,13 @@ public class VacinacaoService {
 						
 						vacinacao.setUsuario(usuario.getIdUsuario());
 						vacinacao.setVacina(vacina.getIdVacina());
+			
 						
-						calcularDoses(vacinacao, vacina.getIntervalo(), dataInicial, dataFinal,count);
+						calcularDoses(vacinacao, vacina.getIntervalo(), dataInicial, dataFinal,mediaDosesDiarias);
 						
 						vacinacaoRepository.saveAndFlush(vacinacao);
+						
+						//Enviar e-mail
 					}
 				}
 			}
@@ -95,55 +87,57 @@ public class VacinacaoService {
 
 	}
 
-	public Vacinacao calcularDoses(Vacinacao vacinacao, Long intervalo, LocalDate dataInicial,LocalDate dataFinal, int dosesDiarias ) {
-
-		LocalDate primeriaDose = vacinacao.getPrimeiraDose(); 
-		LocalDate segundaDose = vacinacao.getSegundaDose();
+	public Vacinacao calcularDoses(Vacinacao vacinacao, Long intervaloVacina, LocalDate dataInicial,LocalDate dataFinal, long mediaDosesDiarias ) {
+	
 		
+		LocalDate verificaDia = ControleDiarioDoses(mediaDosesDiarias, dataInicial, dataFinal);
 		
+		vacinacao.setPrimeiraDose(verificaDia);
 		
-	//	long teste =  Days.daysBetween(ReadableInstant(dataInicial), ReadableInstant(dataFinal));
-		
-		
-		/*
-		 * long days = Days.daysBetween(dataInicial, dataFinal);
-		 * 
-		 * Days.between(dateBefore, dateAfter);
-		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * int dias = Days.daysBetween(dataInicial, dataFinal); int dia =
-		 * LocalDateTime.Property(dataInicial, dataFinal);
-		 */
-		
-		
-		//int dosesDiaria = vacinacaoRepository.totalDosesDia(dataInicial);
-		
-		/* Long mediaDosesDiarias = totalDoses/dias;
-		 * if(dias)
-		 * */
-		
-		
-		 
-//		 int dias = dataFinal - dataInicio;
-
-		LocalDate data = dataInicial.plusDays(intervalo);
-		vacinacao.setPrimeiraDose(dataInicial);
+		LocalDate data = dataInicial.plusDays(intervaloVacina);
 		vacinacao.setSegundaDose(data);
 
-		// int dias = totalDoses;
 
 		return vacinacao;
 	}
 
-	public int ControleDiarioDoses(int totalDoses) {
-		int mediaDosesDiarias = totalDoses/dias;
+	public LocalDate ControleDiarioDoses(long mediaDosesDiarias, LocalDate dataInicial, LocalDate dataFinal) { 
 		
+		int dosesDia  = vacinacaoRepository.totalDosesDia(dataInicial);
 		
-		return mediaDosesDiarias;
+		if(dosesDia >= mediaDosesDiarias) {				
+
+			
+			while(dosesDia >= mediaDosesDiarias) {
+				int contador = 1;
+				LocalDate dia =  dataInicial.plusDays(contador);
+
+				dosesDia  = vacinacaoRepository.totalDosesDia(dia);
+				
+				if (dia.isBefore(dataInicial) || dia.isAfter(dataFinal)) {		
+					return dia;
+				}
+				
+			}
+			
+			/*for( int i = 1; i > dosesDia; i++) {
+				
+				LocalDate dia =  dataInicial.plusDays(i);
+
+				dosesDia  = vacinacaoRepository.totalDosesDia(dia);
+				
+				if (dia.isBefore(dataInicial) || dia.isAfter(dataFinal)) {		
+					return dia;
+				}
+			}*/
+		}
+		
+		return dataInicial;
+
 	}
+	 
+	
+	
 	
 	public Vacinacao findById(Long id) {
 		Optional<Vacinacao> opVacinacao = vacinacaoRepository.findById(id);
