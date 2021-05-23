@@ -8,13 +8,14 @@ import './style.css';
 function Create() {
   const [nomeVacina, setNomeVacina] = useState();
   const [totalDoses, setTotalDoses] = useState();
+  const [intervalo, setIntervalo] = useState();
   const history = useHistory();
 
   
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.post('vacinas', {nomeVacina, totalDoses});
+      const response = await api.post('vacinas', {nomeVacina, totalDoses, intervalo});
       history.push('/vacinas')
     } catch (error) {
       console.log(error)
@@ -46,6 +47,17 @@ function Create() {
                   placeholder="Ex: 150"
                   required
                   onChange={e => setTotalDoses(e.target.value)}
+                />
+            </FormGroup>
+            <FormGroup row>
+                <Label for="intervalo" sm={6}>Intervalo</Label>
+                <Input 
+                  type="number" 
+                  name="intervalo" 
+                  id="intervalo" 
+                  placeholder="Ex: 21"
+                  required
+                  onChange={e => setIntervalo(e.target.value)}
                 />
             </FormGroup>
             

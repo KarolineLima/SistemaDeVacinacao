@@ -3,6 +3,7 @@ import { Container, Form, FormGroup, Label, Input, Button} from 'reactstrap';
 import {useHistory} from 'react-router-dom';
 import Header from '../../../components/Header';
 import api from '../../../services/api';
+import MD5 from 'crypto-js/md5';
 import './style.css';
 
 function Create() {
@@ -12,22 +13,23 @@ function Create() {
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
     const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [password, setPassword] = useState('');
     const history = useHistory();
 
 
     async function handleCadastro(e){
         e.preventDefault();
         try {
-          const response = await api.post('usuarios', {
-              nome,
-              idade,
-              dataNasc,
-              cidade,
-              estado,
-              email,
-              senha
-          });
+            const senha = MD5(password);
+            const response = await api.post('usuarios', {
+                nome,
+                idade,
+                dataNasc,
+                cidade,
+                estado,
+                email,
+                senha
+            });
           history.push('/usuarios')
         } catch (error) {
           console.log(error)
@@ -104,7 +106,7 @@ function Create() {
                         type="password" 
                         name="senha" 
                         id="senha" 
-                        onChange={e => setSenha(e.target.value)}
+                        onChange={e => setPassword(e.target.value)}
                         required/>
                 </FormGroup>
                 <Button type="submit" className="btn-user">Cadastrar</Button>

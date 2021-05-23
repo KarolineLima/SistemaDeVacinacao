@@ -22,8 +22,7 @@ function Login() {
         e.preventDefault();
         try {
             const senha = MD5(Password);
-            console.log(senha)
-            const response = await api.get('', {Login, Password})
+            const response = await api.post('/login', {Login, senha})
             if(response.data.user){
                 history.push('/dashboard');
             }
