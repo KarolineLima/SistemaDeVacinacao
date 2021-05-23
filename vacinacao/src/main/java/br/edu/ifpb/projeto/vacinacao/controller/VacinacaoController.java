@@ -35,14 +35,14 @@ public class VacinacaoController {
 
 	
 	@GetMapping("/{dataVacinar}")
-	public ResponseEntity<List<Vacinacao>> relatorioParaVacinar(@PathVariable("data") LocalDate data){
-		List<Vacinacao> vacinacoes = vacinacaoService.relatorioParaVacinar(data);
+	public ResponseEntity<List<Vacinacao>> relatorioParaVacinar(@PathVariable("dataVacinar") LocalDate dataVacinar){
+		 List<Vacinacao> vacinacoes = vacinacaoService.relatorioParaVacinar(dataVacinar);
 		 return ResponseEntity.ok(vacinacoes);
 	}
 	
 	@GetMapping("/{dataVacinados}")
-	public ResponseEntity<List<Vacinacao>> relatorioVacinados(@PathVariable("data") LocalDate data){
-		 List<Vacinacao> vacinacoes = vacinacaoService.relatorioVacinados(data);
+	public ResponseEntity<List<Vacinacao>> relatorioVacinados(@PathVariable("dataVacinados") LocalDate dataVacinados){
+		 List<Vacinacao> vacinacoes = vacinacaoService.relatorioVacinados(dataVacinados);
 		 return ResponseEntity.ok(vacinacoes);
 	}
 
