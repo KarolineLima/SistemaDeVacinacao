@@ -29,7 +29,9 @@ public class Vacinacao {
 	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private LocalDate segundaDose;
 	private String localVacinacao;
-	
+	private String senhaVacina;
+	private Boolean vacinadoPrimeiraDose;
+	private Boolean vacinadoSegundaDose;
 	
 	public Vacinacao() {
 	
@@ -95,5 +97,36 @@ public class Vacinacao {
 		this.localVacinacao = localVacinacao;
 	}
 
+
+	public String getSenhaVacina() {
+		return senhaVacina;
+	}
+
+
+	public void setSenhaVacina(String senhaVacina) {
+		this.senhaVacina = senhaVacina;
+	}
+
+
+	public Boolean getVacinadoPrimeiraDose() {
+		return vacinadoPrimeiraDose;
+	}
+
+
+	public void setVacinadoPrimeiraDose(Boolean vacinadoPrimeiraDose) {
+		this.vacinadoPrimeiraDose = vacinadoPrimeiraDose;
+	}
+
+
+	public Boolean getVacinadoSegundaDose() {
+		return vacinadoSegundaDose;
+	}
+
+
+	public void setVacinadoSegundaDose(Boolean vacinadoSegundaDose) {
+		this.vacinadoSegundaDose = vacinadoSegundaDose;
+	}
+
+	
 
 }

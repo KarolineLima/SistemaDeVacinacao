@@ -9,9 +9,21 @@ import org.springframework.data.repository.query.Param;
 
 import br.edu.ifpb.projeto.vacinacao.model.Vacinacao;
 
+
 public interface VacinacaoRepository extends JpaRepository<Vacinacao, Long> {
 	
-	  @Query("count(*) from Vacinacao v where v.primeriaDose = :dia") 
-	  int totalDosesDia(@Param("dia") LocalDate dia);
+	  @Query("select count(*) from Vacinacao v where v.primeiraDose = :dia") 
+	  long totalDosesDia(@Param("dia") LocalDate dia);
 	 
+	  
+	  @Query("from Vacinacao v join Usuario u on v.senhaVacina = u.senhaVacina where primeiraDose between :data and :dataFimDaSemana ")
+	  List<Vacinacao> vacinacaoPrimeiraDose(@Param("data") LocalDate data,
+			  							 @Param("dataFimDaSemana") LocalDate dataFimDaSemana);
+	  
+	  @Query("from Vacinacao v join Usuario u on v.senhaVacina = u.senhaVacina where segundaDose between :data and :dataFimDaSemana ")
+	  List<Vacinacao> vacinacaoSegundaDose(@Param("data") LocalDate data,
+			  							 @Param("dataFimDaSemana") LocalDate dataFimDaSemana);
+	  
+	  @Query("select count(*) from Vacinacao")
+	  int totalVacinacoes();
 }

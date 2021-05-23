@@ -60,7 +60,7 @@ public class CalendarioVacinacaoController {
 			
 			CalendarioVacinacao calendario = calendarioService.findById(calendarioVacinacao.getIdCalendarioVacinacao());
 			
-			/*vacinacaoService.saveVacinacao(calendario);*/
+			vacinacaoService.saveVacinacao(calendario);
 			
 			return ResponseEntity.ok(calendarioVacinacao);
 	}

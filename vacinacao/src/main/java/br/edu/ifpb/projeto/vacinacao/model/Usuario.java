@@ -26,7 +26,6 @@ public class Usuario {
 	private String estado;
 	private String email;
 	private String tipo;
-	private String login;
 	private String senha;
 	private String senhaVacina;
 	
@@ -79,12 +78,7 @@ public class Usuario {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
+	
 	public String getSenha() {
 		return senha;
 	}

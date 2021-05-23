@@ -2,6 +2,7 @@ package br.edu.ifpb.projeto.vacinacao.service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,7 +69,7 @@ public class VacinacaoService {
 											 Long.toString(vacinacao.getIdVacinacao());
 						
 						usuario.setSenhaVacina(senhaVacina);
-
+						vacinacao.setSenhaVacina(senhaVacina);
 						
 						vacinacao.setUsuario(usuario.getIdUsuario());
 						vacinacao.setVacina(vacina.getIdVacina());
@@ -103,10 +104,10 @@ public class VacinacaoService {
 
 	public LocalDate ControleDiarioDoses(long mediaDosesDiarias, LocalDate dataInicial, LocalDate dataFinal) { 
 		
-		int dosesDia  = vacinacaoRepository.totalDosesDia(dataInicial);
+		long dosesDia  = vacinacaoRepository.totalDosesDia(dataInicial);
 		
 		if(dosesDia >= mediaDosesDiarias) {				
-
+//verificar for ou fazer while?
 			
 			while(dosesDia >= mediaDosesDiarias) {
 				int contador = 1;
@@ -137,8 +138,71 @@ public class VacinacaoService {
 	}
 	 
 	
+	public List<Vacinacao> relatorioParaVacinar(LocalDate data) {
+
+		LocalDate dataFimDaSemana = data.plusDays(7);
+	/*	List<Vacinacao> vacinacaoPrimeiraDose = vacinacaoRepository.vacinacaoPrimeiraDose(data, dataFimDaSemana);
+		List<Vacinacao> vacinacaoSegundaDose = vacinacaoRepository.vacinacaoSegundaDose(data, dataFimDaSemana);*/
+		
+		
+		
+		List<Vacinacao> vacinacoes = vacinacaoRepository.findAll();
+		
+		List<Vacinacao> relatorio = new ArrayList<Vacinacao>();
+		
+		for( int i = 1; i > vacinacoes.size(); i++) {
+			
+			Vacinacao vacinacao = vacinacoes.get(i);
+			
+			LocalDate vacinacaoPrimeiraDose = vacinacao.getPrimeiraDose();
+			LocalDate vacinacaoSegundaDose = vacinacao.getSegundaDose();
+			
+			
+			if (vacinacaoPrimeiraDose.isBefore(data) || vacinacaoPrimeiraDose.isAfter(dataFimDaSemana)
+				|| vacinacaoSegundaDose.isBefore(data) || vacinacaoSegundaDose.isAfter(dataFimDaSemana) ) {		
+			
+				relatorio.add(vacinacao);
+			}
+			
+		}
+
+		return relatorio;
+	}
 	
 	
+	public List<Vacinacao> relatorioVacinados(LocalDate data) {
+
+		LocalDate dataFimDaSemana = data.plusDays(7);
+	/*	List<Vacinacao> vacinacaoPrimeiraDose = vacinacaoRepository.vacinacaoPrimeiraDose(data, dataFimDaSemana);
+		List<Vacinacao> vacinacaoSegundaDose = vacinacaoRepository.vacinacaoSegundaDose(data, dataFimDaSemana);*/
+		
+		
+		
+		List<Vacinacao> vacinacoes = vacinacaoRepository.findAll();
+		
+		List<Vacinacao> relatorio = new ArrayList<Vacinacao>();
+		
+		for( int i = 1; i > vacinacoes.size(); i++) {
+			
+			Vacinacao vacinacao = vacinacoes.get(i);
+			
+			LocalDate vacinacaoPrimeiraDose = vacinacao.getPrimeiraDose();
+			LocalDate vacinacaoSegundaDose = vacinacao.getSegundaDose();
+			
+			
+			if (vacinacaoPrimeiraDose.isBefore(data) || vacinacaoPrimeiraDose.isAfter(dataFimDaSemana)
+				|| vacinacaoSegundaDose.isBefore(data) || vacinacaoSegundaDose.isAfter(dataFimDaSemana) ) {		
+			
+				if(vacinacao.getVacinadoPrimeiraDose() != null || vacinacao.getVacinadoPrimeiraDose() != null) {
+					relatorio.add(vacinacao);
+				}
+
+			}
+			
+		}
+
+		return relatorio;
+	}	
 	public Vacinacao findById(Long id) {
 		Optional<Vacinacao> opVacinacao = vacinacaoRepository.findById(id);
 		return opVacinacao.isPresent() ? opVacinacao.get() : null;

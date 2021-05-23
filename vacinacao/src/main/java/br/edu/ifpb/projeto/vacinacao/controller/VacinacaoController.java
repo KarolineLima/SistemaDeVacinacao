@@ -1,5 +1,6 @@
 package br.edu.ifpb.projeto.vacinacao.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,17 @@ public class VacinacaoController {
 	
 	}
 
+	
+	@GetMapping("/{dataVacinar}")
+	public ResponseEntity<List<Vacinacao>> relatorioParaVacinar(@PathVariable("data") LocalDate data){
+		List<Vacinacao> vacinacoes = vacinacaoService.relatorioParaVacinar(data);
+		 return ResponseEntity.ok(vacinacoes);
+	}
+	
+	@GetMapping("/{dataVacinados}")
+	public ResponseEntity<List<Vacinacao>> relatorioVacinados(@PathVariable("data") LocalDate data){
+		 List<Vacinacao> vacinacoes = vacinacaoService.relatorioVacinados(data);
+		 return ResponseEntity.ok(vacinacoes);
+	}
 
 }
