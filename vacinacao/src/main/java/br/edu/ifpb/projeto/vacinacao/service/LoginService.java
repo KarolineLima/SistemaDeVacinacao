@@ -15,14 +15,14 @@ public class LoginService {
 	
 	public Usuario findByLogin(Usuario usuario) {
 		Usuario user = usuarioRepository.findByLogin(usuario.getEmail());
-		boolean valido = false;
+
 		if(user != null) {
-			if(usuario.getSenha() == user.getSenha()) {
-				valido = true;
+			if(usuario.getSenha().equals(user.getSenha())) {
+				return user;
 			}
 		}
 		
-		return valido ? user : null;
+		return null;
 
 	}
 }

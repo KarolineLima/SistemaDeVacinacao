@@ -25,7 +25,7 @@ public class Usuario {
 	private String cidade;
 	private String estado;
 	private String email;
-	private String tipo;
+	private String tipo = "Usuario";
 	private String senha;
 	private String senhaVacina;
 	
