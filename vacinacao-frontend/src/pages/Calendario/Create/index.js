@@ -6,13 +6,23 @@ import { useHistory } from 'react-router-dom';
 import './style.css';
 
 function Create() {
-  const [calendar, setCalendar] = useState([]);
-  const [data1, setData1] = useState([]);
-  const [data2, setData2] = useState([]);
-  const [idade, setIdade] = useState([]);
+  const [dataInicio, setDataInicio] = useState();
+  const [dataFinal, setDataFinal] = useState();
+  const [faixaEtariaInicial, setfaixaEtariaInicial] = useState();
+  const [faixaEtariaFinal, setfaixaEtariaFinal] = useState();
+  const history = useHistory();
+  
   async function handleCadastro(e){
     e.preventDefault();
     try {
+      const response = await api.post('calendario-vacinacao',
+      {
+        dataInicio,
+        dataFinal,
+        faixaEtariaInicial,
+        faixaEtariaFinal
+      })
+      history.push('/calendario')
   
     } catch (error) {
       
@@ -30,15 +40,17 @@ function Create() {
                     type="date" 
                     name="data1" 
                     id="data1"
+                    onChange={e=>setDataInicio(e.target.value)}
                     required
                   />
               </FormGroup>            
               <FormGroup row>
-                  <Label for="data2" sm={2}>Final Inicial:</Label>
+                  <Label for="data2" sm={2}>Data Final:</Label>
                   <Input 
                     type="date" 
                     name="data2" 
                     id="data2"
+                    onChange={e=>setDataFinal(e.target.value)}
                     required 
                   />
               </FormGroup>            
@@ -49,6 +61,7 @@ function Create() {
                     name="idade" 
                     id="idade" 
                     placeholder="50"
+                    onChange={e=>setfaixaEtariaInicial(e.target.value)}
                     required 
                   />
               </FormGroup>
@@ -59,6 +72,7 @@ function Create() {
                     name="idade" 
                     id="idade" 
                     placeholder="50"
+                    onChange={e=>setfaixaEtariaFinal(e.target.value)}
                     required 
                   />
               </FormGroup>              

@@ -15,7 +15,11 @@ function Create() {
   async function handleCadastro(e){
     e.preventDefault();
     try {
-      const response = await api.post('vacinas', {nomeVacina, totalDoses, intervalo});
+      const response = await api.post('vacinas', 
+          {nomeVacina, totalDoses, intervalo, headers: {
+            "Access-Control-Allow-Origin": "*"
+          }}
+      );
       history.push('/vacinas')
     } catch (error) {
       console.log(error)

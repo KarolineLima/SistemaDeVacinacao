@@ -9,14 +9,17 @@ import './style.css';
 
 function List() {
 
-  const [calendario, setCalendario] = useState([]);
+  const [calendario, setCalendario] = useState();
 
 
   useEffect(() => {
-    api.get('/calendario').then(response => {
+    api.get('/calendario-vacinacao').then(response => {
       setCalendario(response.data);
+      console.log(response.data)
     })
-  }, [calendario]);
+  }, []);
+
+
     return (
       <>
         <Header/>
@@ -35,25 +38,16 @@ function List() {
             </thead>
             <tbody>
               {calendario?.map(cal => (
-                <tr key={cal.idCalendario}>
-                  <th scope="row">{cal.idCalendario}</th>
-                  <td>{cal.DataInicial}</td>
-                  <td>{cal.DataFinal}</td>
-                  <td>{cal.IdadeInicial}</td>
-                  <td>{cal.IdadeFinal}</td>
+                <tr key={cal.idCalendarioVacinacao}>
+                  <th scope="row">{cal.idCalendarioVacinacao}</th>
+                  <td>{cal.dataInicio}</td>
+                  <td>{cal.dataFinal}</td>
+                  <td>{cal.faixaEtariaInicial}</td>
+                  <td>{cal.faixaEtariaInicial}</td>
                   <td><Link to={`/calendario/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
                   <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>
               ))}
-                <tr>
-                  <th scope="row">1</th>
-                  <td>15/08/2021</td>
-                  <td>30/08/2021</td>
-                  <td>70 anos</td>
-                  <td>80 anos</td>
-                  <td><Link to={`/calendario/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
-                  <td><IoMdTrash size={30} color="#EE0000"/></td>
-                </tr>
             </tbody>
           </Table>
         </Container>

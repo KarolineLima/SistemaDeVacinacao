@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Form, FormGroup, Label, Input, Button} from 'reactstrap';
+import moment from 'moment';
+
 import api from '../../../services/api';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Header from '../../../components/Header';
 
 function Update() {
@@ -11,7 +13,19 @@ function Update() {
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
     const [email, setEmail] = useState('');
+    const [user, setUser] = useState();
+    let data;
+    const {id} = useParams();
     const history = useHistory();
+
+    useEffect(async ()=>{
+        await api.get('usuarios/'.concat(id))
+        .then(response => {
+            setUser(response.data) 
+            console.log(user.dataNascimento)
+            console.log(moment(user.dataNascimento).toDate())
+        });
+    }, [id]);
 
 
     async function handleCadastro(e){
@@ -42,6 +56,7 @@ function Update() {
                         type="text" 
                         name="nome" 
                         id="nome"
+                        defaultValue={user?.nome || ''}
                         onChange={e => setNome(e.target.value)}
                         required/>
                 </FormGroup>
@@ -51,6 +66,7 @@ function Update() {
                         type="number" 
                         name="idade" 
                         id="idade"
+                        defaultValue={user?.idade}
                         onChange={e => setIdade(e.target.value)}
                         required/>
                 </FormGroup>
@@ -60,6 +76,7 @@ function Update() {
                         type="date" 
                         name="dataNasc" 
                         id="dataNasc"
+                        defaultValue={moment(user?.dataNascimento)}
                         onChange={e => setDataNasc(e.target.value)}
                         required
                         />
@@ -70,6 +87,7 @@ function Update() {
                         type="text" 
                         name="cidade" 
                         id="cidade"
+                        defaultValue={user?.cidade}
                         onChange={e => setCidade(e.target.value)}
                         required/>
                 </FormGroup>
@@ -79,6 +97,7 @@ function Update() {
                         type="text" 
                         name="estado" 
                         id="estado"
+                        defaultValue={user?.estado}
                         onChange={e => setEstado(e.target.value)}
                         required/>
                 </FormGroup>
@@ -88,6 +107,7 @@ function Update() {
                         type="email" 
                         name="email" 
                         id="email"
+                        defaultValue={user?.email}
                         onChange={e => setEmail(e.target.value)}
                         required/>
                 </FormGroup>

@@ -16,10 +16,11 @@ function List() {
     api.get('/vacinas').then(response => {
       setVacinas(response.data);
     })
-  }, [vacinas]);
+  }, []);
+  
   async function handlerDelete(id){
     try{
-      await api.delete('/vacinas/'.concat(id))
+      await api.post('/vacinas/delete/'.concat(id));
 
       setVacinas(vacinas.filter(vacina => vacina.id !== id));
     }catch(error){
