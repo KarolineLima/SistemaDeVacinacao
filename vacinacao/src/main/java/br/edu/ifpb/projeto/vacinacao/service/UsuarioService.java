@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.projeto.vacinacao.model.Usuario;
+import br.edu.ifpb.projeto.vacinacao.model.Vacina;
 import br.edu.ifpb.projeto.vacinacao.repository.UsuarioRepository;
 
 @Service
@@ -43,5 +44,24 @@ public class UsuarioService {
 	}
 	
 
+	@Transactional
+	public Optional<Usuario> updateUsuario(Long id , Usuario usuario) {
+		
+		return usuarioRepository.findById(id)
+				.map(record ->{
+					record.setNome(usuario.getNome());
+					record.setIdade(usuario.getIdade());
+					record.setDataNascimento(usuario.getDataNascimento());
+					record.setCidade(usuario.getCidade());
+					record.setEstado(usuario.getEstado());
+					record.setEmail(usuario.getEmail());
+					record.setSenha(usuario.getSenha());
+					record.setSenhaVacina(usuario.getSenhaVacina());
+					record.setTipo(usuario.getTipo());
+					
+					return usuarioRepository.save(record);
+				});
+			
+	}
 	
 }

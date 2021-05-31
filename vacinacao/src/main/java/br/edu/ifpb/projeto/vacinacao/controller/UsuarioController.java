@@ -1,6 +1,7 @@
 package br.edu.ifpb.projeto.vacinacao.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ifpb.projeto.vacinacao.model.Usuario;
+import br.edu.ifpb.projeto.vacinacao.model.Vacina;
 import br.edu.ifpb.projeto.vacinacao.service.UsuarioService;
 
 
@@ -40,8 +42,9 @@ public class UsuarioController {
 	
 	}
 	
-	@DeleteMapping("/{id}")
+	@PostMapping("/{id}")
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable("id") long id) {
+		
 		if(usuarioService.findById(id) == null) {
 			return ResponseEntity.notFound().build();
 		}
@@ -54,17 +57,19 @@ public class UsuarioController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Usuario> createUsuario(/*@Valid*/ @RequestBody Usuario usuario) {
-			 usuarioService.saveUsuario(usuario);
+			usuarioService.saveUsuario(usuario);
 			return ResponseEntity.ok(usuario);
 	}
 	
-	@PutMapping(path="/{id}", produces = {"application/json"})
-	public ResponseEntity<Usuario> updateUsuario(/*@Valid*/ @PathVariable("id") long id, @RequestBody Usuario usuario) {
-		if(usuarioService.findById(id) == null) {
-			return ResponseEntity.notFound().build();
-		}
-		usuarioService.saveUsuario(usuario);
-		return ResponseEntity.ok(usuario);
+	@PostMapping("editar/{id}")
+	public ResponseEntity<Usuario> updateUsuario(/*@Valid*/ @PathVariable("id") long id, @RequestBody Usuario usuarioRequest) {
+		Optional<Usuario> usuarioUp = usuarioService.updateUsuario(id, usuarioRequest);
+		 if(usuarioUp.isPresent()) {
+			 Usuario usuario = usuarioUp.get();
+			 return ResponseEntity.ok(usuario);
+		 }
+		
+		 return ResponseEntity.notFound().build();
 	}
 	
 }
