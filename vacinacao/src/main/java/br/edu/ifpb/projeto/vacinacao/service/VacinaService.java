@@ -8,7 +8,6 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.edu.ifpb.projeto.vacinacao.model.Usuario;
 import br.edu.ifpb.projeto.vacinacao.model.Vacina;
 import br.edu.ifpb.projeto.vacinacao.repository.VacinaRepository;
 
@@ -44,7 +43,22 @@ public class VacinaService {
 			return vacinaRepository.findAll();
 		}
 		
-
-
-
+		@Transactional
+		public Optional<Vacina> updateVacina(Long id , Vacina vacina) {
+		
+			return vacinaRepository.findById(id)
+					.map(record ->{
+						record.setNomeVacina(vacina.getNomeVacina());
+						record.setTotalDoses(vacina.getTotalDoses());
+						record.setIntervalo(vacina.getIntervalo());
+					
+						return vacinaRepository.save(record);
+					});
+				
+		}
+		
+		public int somaTotalDoses() {
+			return vacinaRepository.somaTotalDoses();
+		}
+		
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.ifpb.projeto.vacinacao.model.CalendarioVacinacao;
 import br.edu.ifpb.projeto.vacinacao.model.Usuario;
+import br.edu.ifpb.projeto.vacinacao.model.Vacina;
 import br.edu.ifpb.projeto.vacinacao.repository.CalendarioVacinacaoRepository;
 
 @Service
@@ -43,5 +44,23 @@ public class CalendarioVacinacaoService {
 		return calendarioRepository.findAll();
 	}
 	
+	@Transactional
+	public Optional<CalendarioVacinacao> updateCalendarioVacinacao(Long id , CalendarioVacinacao calendarioVacinacao) {
+		
+		return calendarioRepository.findById(id)
+				.map(record ->{
+					record.setDataInicio(calendarioVacinacao.getDataInicio());
+					record.setDataFinal(calendarioVacinacao.getDataFinal());
+					record.setFaixaEtariaInicial(calendarioVacinacao.getFaixaEtariaInicial());
+					record.setFaixaEtariaFinal(calendarioVacinacao.getFaixaEtariaFinal());
+					record.setObsoleto(calendarioVacinacao.isObsoleto());
+				
+					return calendarioRepository.save(record);
+				});
+			
+	}
 
+	public Long findByMaxId() {
+		return calendarioRepository.findByMaxId();
+	}
 }

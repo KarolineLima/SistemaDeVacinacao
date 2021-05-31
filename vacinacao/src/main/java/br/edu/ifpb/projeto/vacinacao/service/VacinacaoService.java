@@ -37,53 +37,56 @@ public class VacinacaoService {
 
 	@Transactional
 	public void saveVacinacao(CalendarioVacinacao calendario) {
-
-		LocalDate dataInicial = calendario.getDataInicio();
-		LocalDate dataFinal = calendario.getDataFinal();
-		int FaixaEtariaInicial = calendario.getFaixaEtariaInicial();
-		int FaixaEtariaFinal = calendario.getFaixaEtariaFinal();
-
-		long periodoCalendario = ChronoUnit.DAYS.between(dataInicial, dataFinal);
 		
 		List<Vacina> vacinas = vacinaService.findAll();
 		List<Usuario> usuarios = usuarioService.findAll();
-
-		for (int v = 0; v <= vacinas.size(); v++) {
-
-			Vacina vacina = vacinas.get(v);
-			int totalDoses = vacina.getTotalDoses();
-
-			long mediaDosesDiarias = totalDoses/periodoCalendario;
+		int somaTotalDoses = vacinaService.somaTotalDoses();
+		
+		if(usuarios.size() >= somaTotalDoses ) {
+		
+			LocalDate dataInicial = calendario.getDataInicio();
+			LocalDate dataFinal = calendario.getDataFinal();
+			int FaixaEtariaInicial = calendario.getFaixaEtariaInicial();
+			int FaixaEtariaFinal = calendario.getFaixaEtariaFinal();
+			long periodoCalendario = ChronoUnit.DAYS.between(dataInicial, dataFinal);
+		
+			for (int v = 0; v < vacinas.size() ; v++) {
 			
-			for (int u = 0; u <= totalDoses; u++) {
-				Usuario usuario = usuarios.get(u);
+				Vacina vacina = vacinas.get(v);
+				int totalDoses = vacina.getTotalDoses();
+				long mediaDosesDiarias = totalDoses/periodoCalendario;
 				
-				if ( usuario.getIdade() >= FaixaEtariaInicial && usuario.getIdade() <= FaixaEtariaFinal ) {
-				
-					if(usuario.getSenhaVacina() == null) {
-						
-						Vacinacao vacinacao = new Vacinacao();
+				for (int u = 0; u < totalDoses; u++) {
+					Usuario usuario = usuarios.get(u);
 					
-						String senhaVacina = Long.toString(calendario.getIdCalendarioVacinacao()) +
-											 Long.toString(vacina.getIdVacina()) + 
-											 Long.toString(vacinacao.getIdVacinacao());
+					if ( usuario.getIdade() <= FaixaEtariaInicial && usuario.getIdade() >= FaixaEtariaFinal ) {
 						
-						usuario.setSenhaVacina(senhaVacina);
-						vacinacao.setSenhaVacina(senhaVacina);
+						if(usuario.getSenhaVacina() == null) {
+							
+							Vacinacao vacinacao = new Vacinacao();
 						
-						vacinacao.setUsuario(usuario.getIdUsuario());
-						vacinacao.setVacina(vacina.getIdVacina());
-			
-						
-						calcularDoses(vacinacao, vacina.getIntervalo(), dataInicial, dataFinal,mediaDosesDiarias);
-						
-						vacinacaoRepository.saveAndFlush(vacinacao);
-						
-						//Enviar e-mail
+							String senhaVacina = Long.toString(calendario.getIdCalendarioVacinacao()) +
+												 Long.toString(vacina.getIdVacina())+
+												 Long.toString(usuario.getIdUsuario());
+							
+							usuario.setSenhaVacina(senhaVacina);
+							vacinacao.setSenhaVacina(senhaVacina);
+							
+							vacinacao.setUsuario(usuario.getIdUsuario());
+							vacinacao.setVacina(vacina.getIdVacina());
+				
+							
+							calcularDoses(vacinacao, vacina.getIntervalo(), dataInicial, dataFinal,mediaDosesDiarias);
+							
+							vacinacaoRepository.saveAndFlush(vacinacao);
+							
+							
+							//Enviar e-mail
+						}
 					}
 				}
+	
 			}
-
 		}
 
 	}
@@ -107,7 +110,6 @@ public class VacinacaoService {
 		long dosesDia  = vacinacaoRepository.totalDosesDia(dataInicial);
 		
 		if(dosesDia >= mediaDosesDiarias) {				
-//verificar for ou fazer while?
 			
 			while(dosesDia >= mediaDosesDiarias) {
 				int contador = 1;
@@ -121,16 +123,6 @@ public class VacinacaoService {
 				
 			}
 			
-			/*for( int i = 1; i > dosesDia; i++) {
-				
-				LocalDate dia =  dataInicial.plusDays(i);
-
-				dosesDia  = vacinacaoRepository.totalDosesDia(dia);
-				
-				if (dia.isBefore(dataInicial) || dia.isAfter(dataFinal)) {		
-					return dia;
-				}
-			}*/
 		}
 		
 		return dataInicial;
@@ -141,11 +133,7 @@ public class VacinacaoService {
 	public List<Vacinacao> relatorioParaVacinar(LocalDate data) {
 
 		LocalDate dataFimDaSemana = data.plusDays(7);
-	/*	List<Vacinacao> vacinacaoPrimeiraDose = vacinacaoRepository.vacinacaoPrimeiraDose(data, dataFimDaSemana);
-		List<Vacinacao> vacinacaoSegundaDose = vacinacaoRepository.vacinacaoSegundaDose(data, dataFimDaSemana);*/
-		
-		
-		
+	
 		List<Vacinacao> vacinacoes = vacinacaoRepository.findAll();
 		
 		List<Vacinacao> relatorio = new ArrayList<Vacinacao>();
@@ -173,11 +161,7 @@ public class VacinacaoService {
 	public List<Vacinacao> relatorioVacinados(LocalDate data) {
 
 		LocalDate dataFimDaSemana = data.plusDays(7);
-	/*	List<Vacinacao> vacinacaoPrimeiraDose = vacinacaoRepository.vacinacaoPrimeiraDose(data, dataFimDaSemana);
-		List<Vacinacao> vacinacaoSegundaDose = vacinacaoRepository.vacinacaoSegundaDose(data, dataFimDaSemana);*/
-		
-		
-		
+	
 		List<Vacinacao> vacinacoes = vacinacaoRepository.findAll();
 		
 		List<Vacinacao> relatorio = new ArrayList<Vacinacao>();
@@ -216,5 +200,17 @@ public class VacinacaoService {
 	public List<Vacinacao> findAll() {
 		return vacinacaoRepository.findAll();
 	}
-
+	
+	@Transactional
+	public Optional<Vacinacao> updateVacina(Long id , Vacinacao vacinacao) {
+	
+		return vacinacaoRepository.findById(id)
+				.map(record ->{
+					record.setVacinadoPrimeiraDose(vacinacao.getVacinadoPrimeiraDose());
+					record.setVacinadoSegundaDose(vacinacao.getVacinadoSegundaDose());
+				
+					return vacinacaoRepository.save(record);
+				});
+			
+	}
 }

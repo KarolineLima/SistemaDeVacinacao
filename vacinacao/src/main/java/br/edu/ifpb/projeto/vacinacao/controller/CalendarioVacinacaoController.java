@@ -1,6 +1,7 @@
 package br.edu.ifpb.projeto.vacinacao.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class CalendarioVacinacaoController {
 	
 	}
 	
-	@DeleteMapping("/{id}")
+	@PostMapping("/{id}")
 	public ResponseEntity<CalendarioVacinacao> deleteCalendarioVacinacao(@PathVariable("id") long id) {
 		if(calendarioService.findById(id) == null) {
 			return ResponseEntity.notFound().build();
@@ -58,20 +59,22 @@ public class CalendarioVacinacaoController {
 	public ResponseEntity<CalendarioVacinacao> createCalendarioVacinacao(/*@Valid*/ @RequestBody CalendarioVacinacao calendarioVacinacao) {
 			calendarioService.saveCalendarioVacinacao(calendarioVacinacao);
 			
-			CalendarioVacinacao calendario = calendarioService.findById(calendarioVacinacao.getIdCalendarioVacinacao());
-			
+			Long idCalendario = calendarioService.findByMaxId();
+			CalendarioVacinacao calendario = calendarioService.findById(idCalendario);
 			vacinacaoService.saveVacinacao(calendario);
 			
 			return ResponseEntity.ok(calendarioVacinacao);
 	}
 	
-	@PutMapping(path="/{id}", produces = {"application/json"})
-	public ResponseEntity<CalendarioVacinacao> updateCalendarioVacinacao(/*@Valid*/ @PathVariable("id") long id, @RequestBody CalendarioVacinacao calendarioVacinacao) {
-		if(calendarioService.findById(id) == null) {
-			return ResponseEntity.notFound().build();
-		}
-		calendarioService.saveCalendarioVacinacao(calendarioVacinacao);
-		return ResponseEntity.ok(calendarioVacinacao);
+	@PostMapping("editar/{id}")
+	public ResponseEntity<CalendarioVacinacao> updateCalendarioVacinacao(/*@Valid*/ @PathVariable("id") long id, @RequestBody CalendarioVacinacao calendarioVacinacaoRequest) {
+		Optional<CalendarioVacinacao> calendarioVacinacaoUp = calendarioService.updateCalendarioVacinacao(id, calendarioVacinacaoRequest);
+		 if(calendarioVacinacaoUp.isPresent()) {
+			 CalendarioVacinacao calendario = calendarioVacinacaoUp.get();
+			 return ResponseEntity.ok(calendario);
+		 }
+		
+		 return ResponseEntity.notFound().build();
 	}
 
 }

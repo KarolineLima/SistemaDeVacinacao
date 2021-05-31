@@ -2,14 +2,18 @@ package br.edu.ifpb.projeto.vacinacao.controller;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.ifpb.projeto.vacinacao.model.Vacina;
 import br.edu.ifpb.projeto.vacinacao.model.Vacinacao;
 import br.edu.ifpb.projeto.vacinacao.service.VacinacaoService;
 
@@ -44,6 +48,20 @@ public class VacinacaoController {
 	public ResponseEntity<List<Vacinacao>> relatorioVacinados(@PathVariable("dataVacinados") LocalDate dataVacinados){
 		 List<Vacinacao> vacinacoes = vacinacaoService.relatorioVacinados(dataVacinados);
 		 return ResponseEntity.ok(vacinacoes);
+	}
+
+	@PostMapping("editar/{id}")
+	public ResponseEntity<Vacinacao> updateVacinacao(/*@Valid*/ @PathVariable("id") long id, @RequestBody Vacinacao vacinacaoRequest) {
+		
+		 Optional<Vacinacao> vacinacaoUp = vacinacaoService.updateVacina(id, vacinacaoRequest);
+		 if(vacinacaoUp.isPresent()) {
+			 Vacinacao vacinacao = vacinacaoUp.get();
+			 return ResponseEntity.ok(vacinacao);
+		 }
+		
+		 return ResponseEntity.notFound().build();
+		 
+		 
 	}
 
 }
