@@ -25,7 +25,7 @@ public class Usuario {
 	private String cidade;
 	private String estado;
 	private String email;
-	private String tipo = "Usuario";
+	private TipoUsuario tipo = TipoUsuario.USUARIO;
 	private String senha;
 	private String senhaVacina;
 	
@@ -72,13 +72,15 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTipo() {
+	
+	public TipoUsuario getTipo() {
 		return tipo;
 	}
-	public void setTipo(String tipo) {
+
+	public void setTipo(TipoUsuario tipo) {
 		this.tipo = tipo;
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -93,11 +95,9 @@ public class Usuario {
 		this.idUsuario = idUsuario;
 	}
 
-
 	public String getSenhaVacina() {
 		return senhaVacina;
 	}
-
 
 	public void setSenhaVacina(String senhaVacina) {
 		this.senhaVacina = senhaVacina;
