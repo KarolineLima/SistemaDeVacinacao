@@ -100,6 +100,7 @@ public class VacinacaoService {
 	
 			}
 		}
+		return;
 
 	}
 
@@ -121,9 +122,9 @@ public class VacinacaoService {
 		
 		long dosesDia  = vacinacaoRepository.totalDosesDia(dataInicial);
 		
-		if(dosesDia >= mediaDosesDiarias) {				
+		if(dosesDia <= mediaDosesDiarias) {				
 			
-			while(dosesDia >= mediaDosesDiarias) {
+			while(dosesDia <= mediaDosesDiarias) {
 				int contador = 1;
 				LocalDate dia =  dataInicial.plusDays(contador);
 
