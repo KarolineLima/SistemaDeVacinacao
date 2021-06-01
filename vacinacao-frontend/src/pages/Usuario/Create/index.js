@@ -33,7 +33,7 @@ function Create() {
                 email,
                 senha
             });
-          history.push('/usuarios')
+          history.push('/dashboard')
         } catch (error) {
           console.log(error)
         }

@@ -21,6 +21,7 @@ import {
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const Nome = localStorage.getItem('nome');
+  const type = localStorage.getItem('type');
   const history = useHistory();
 
   const toggle = () => setIsOpen(!isOpen);
@@ -32,10 +33,11 @@ function Header() {
   return (
     <div>
       <Navbar dark expand="md">
-        <NavbarBrand><h1><Link to="/">Vaccine</Link></h1></NavbarBrand>
+      <Link to="/dashboard"><NavbarBrand><h1>Vaccine</h1></NavbarBrand></Link>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
+            { type == 'ADMIN' && 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Vacinação
@@ -46,6 +48,8 @@ function Header() {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+             }
+             { type == 'ADMIN' && 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Usuários
@@ -59,6 +63,8 @@ function Header() {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+            }
+            {type == 'ADMIN' && 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Vacinas
@@ -72,6 +78,7 @@ function Header() {
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
+            }
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Calendários
@@ -80,9 +87,11 @@ function Header() {
                 <DropdownItem>
                   <Link to="/calendario">Calendários Cadastrados</Link>
                 </DropdownItem>
+                {type == 'ADMIN' && 
                 <DropdownItem>
                   <Link to="/calendario/novo">Cadastrar Calendário</Link>
                 </DropdownItem>
+                }
               </DropdownMenu>
             </UncontrolledDropdown>
 

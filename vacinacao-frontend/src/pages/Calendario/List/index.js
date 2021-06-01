@@ -10,7 +10,7 @@ import './style.css';
 function List() {
 
   const [calendario, setCalendario] = useState();
-
+  const type = localStorage.getItem('type');
 
   useEffect(() => {
     api.get('/calendario-vacinacao').then(response => {
@@ -33,7 +33,9 @@ function List() {
                 <th>Data Final</th>
                 <th>Idade Inicial</th>
                 <th>Idade Final</th>
+                {type == 'ADMIN' && 
                 <th>Ações</th>
+                }
               </tr>
             </thead>
             <tbody>
@@ -44,8 +46,9 @@ function List() {
                   <td>{cal.dataFinal}</td>
                   <td>{cal.faixaEtariaInicial}</td>
                   <td>{cal.faixaEtariaFinal}</td>
-                  <td><Link to={`/calendario/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
-                  <td><IoMdTrash size={30} color="#EE0000"/></td>
+                  <td>{type == 'ADMIN' && <Link to={`/calendario/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link>}</td>
+                  <td>{type == 'ADMIN' &&<IoMdTrash size={30} color="#EE0000"/>}</td>
+                  
                 </tr>
               ))}
             </tbody>
