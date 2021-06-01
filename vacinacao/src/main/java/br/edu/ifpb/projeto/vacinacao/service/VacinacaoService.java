@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.edu.ifpb.projeto.vacinacao.email.NotificationService;
 import br.edu.ifpb.projeto.vacinacao.model.CalendarioVacinacao;
 import br.edu.ifpb.projeto.vacinacao.model.Usuario;
 import br.edu.ifpb.projeto.vacinacao.model.Vacina;
@@ -31,6 +32,10 @@ public class VacinacaoService {
 
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	@Autowired
+	private NotificationService notificationService;
+	
 
 	@Autowired
 	public VacinacaoService(VacinacaoRepository vacinacaoRepository) {
@@ -84,6 +89,7 @@ public class VacinacaoService {
 							
 							calcularDoses(vacinacao, vacina.getIntervalo(), dataInicial, dataFinal,mediaDosesDiarias);
 							
+							notificationService.sendNotification(usuario, vacinacao);
 							//usuarioService.saveUsuario(usuario);
 							vacinacaoRepository.saveAndFlush(vacinacao);
 							
