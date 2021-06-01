@@ -42,7 +42,7 @@ public class UsuarioController {
 	
 	}
 	
-	@PostMapping("/{id}")
+	@PostMapping("delete/{id}")
 	public ResponseEntity<Usuario> deleteUsuario(@PathVariable("id") long id) {
 		
 		if(usuarioService.findById(id) == null) {

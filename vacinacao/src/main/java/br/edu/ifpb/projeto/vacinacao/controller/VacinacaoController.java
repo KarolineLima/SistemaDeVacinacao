@@ -1,6 +1,8 @@
 package br.edu.ifpb.projeto.vacinacao.controller;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,18 +40,17 @@ public class VacinacaoController {
 	}
 
 	
-	@GetMapping("/{dataVacinar}")
-	public ResponseEntity<List<Vacinacao>> relatorioParaVacinar(@PathVariable("dataVacinar") LocalDate dataVacinar){
+	@GetMapping("/relatorioParaVacinar")
+	public ResponseEntity<List<Vacinacao>> relatorioParaVacinar(@RequestBody Date dataVacinar){
 		 List<Vacinacao> vacinacoes = vacinacaoService.relatorioParaVacinar(dataVacinar);
 		 return ResponseEntity.ok(vacinacoes);
 	}
-	
-	@GetMapping("/{dataVacinados}")
-	public ResponseEntity<List<Vacinacao>> relatorioVacinados(@PathVariable("dataVacinados") LocalDate dataVacinados){
+	@GetMapping("/relatorioVacinados")
+	public ResponseEntity<List<Vacinacao>> relatorioVacinados(@RequestBody Date dataVacinados){
 		 List<Vacinacao> vacinacoes = vacinacaoService.relatorioVacinados(dataVacinados);
 		 return ResponseEntity.ok(vacinacoes);
 	}
-
+	
 	@PostMapping("editar/{id}")
 	public ResponseEntity<Vacinacao> updateVacinacao(/*@Valid*/ @PathVariable("id") long id, @RequestBody Vacinacao vacinacaoRequest) {
 		

@@ -19,9 +19,7 @@ public class LoginController {
 	
 	@PostMapping
 	public ResponseEntity<Usuario> login(@RequestBody Usuario usuario) {
-
 		Usuario user = loginService.findByLogin(usuario);
-		System.out.println(user);
 		if(user != null) {
 			return ResponseEntity.ok(user);
 		}

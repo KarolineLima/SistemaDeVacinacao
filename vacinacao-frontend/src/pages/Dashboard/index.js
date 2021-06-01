@@ -10,13 +10,15 @@ import {
 import './style.css';
 
 function Dashboard() {
-  const [values, setValues] = useState();
+  const [usuarios, setUsuarios] = useState();
+  const [vacinas, setVacinas] = useState();
+  const [vacinacoes, setVacinacoes] = useState();
   
   useEffect(() => {
-    api.get('/dashboard').then(response => {
-      setValues(response.data);
-    })
-  }, [values]);
+    api.get('/dashboard/usuarios').then(response => {setUsuarios(response.data)})
+    api.get('/dashboard/vacinas').then(response => {setVacinas(response.data)})
+    api.get('/dashboard/vacinacoes').then(response => {setVacinacoes(response.data)})
+  }, []);
 
   return (
       <>
@@ -27,14 +29,14 @@ function Dashboard() {
               <div>
                   Usuários cadastrados atualmente
                   <br/>
-                  {values?.usuaarios}  
+                  {usuarios}  
               </div>
             </Col>
             <Col>
               <div>
                   Vacinas cadastradas atualmente
                   <br/>
-                  {values?.vacinas}
+                  {vacinas}
               </div>
             </Col>
           </Row>
@@ -43,7 +45,7 @@ function Dashboard() {
               <div>
                 Vacinações Cadastradas
                 <br />
-                {values?.vacinacoes}
+                {vacinacoes}
               </div>
             </Col>
           </Row>

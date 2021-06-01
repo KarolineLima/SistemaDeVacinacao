@@ -43,7 +43,7 @@ function List() {
                   <td>{cal.dataInicio}</td>
                   <td>{cal.dataFinal}</td>
                   <td>{cal.faixaEtariaInicial}</td>
-                  <td>{cal.faixaEtariaInicial}</td>
+                  <td>{cal.faixaEtariaFinal}</td>
                   <td><Link to={`/calendario/editar/1`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
                   <td><IoMdTrash size={30} color="#EE0000"/></td>
                 </tr>

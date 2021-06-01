@@ -15,7 +15,7 @@ public class LoginService {
 	
 	public Usuario findByLogin(Usuario usuario) {
 		Usuario user = usuarioRepository.findByLogin(usuario.getEmail());
-
+		
 		if(user != null) {
 			if(usuario.getSenha().equals(user.getSenha())) {
 				return user;

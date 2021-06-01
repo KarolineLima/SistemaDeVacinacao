@@ -3,16 +3,18 @@ import { Container, Form, FormGroup, Label, Input, Button} from 'reactstrap';
 import {useHistory} from 'react-router-dom';
 import Header from '../../../components/Header';
 import api from '../../../services/api';
-import MD5 from 'crypto-js/md5';
+import Cryptojs from 'crypto-js';
 import './style.css';
+import moment from 'moment';
 
 function Create() {
     const [nome, setNome] = useState('');
     const [idade, setIdade] = useState('');
-    const [dataNasc, setDataNasc] = useState('');
+    const [dataNascimento, setDataNasc] = useState('');
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
     const [email, setEmail] = useState('');
+    let data;
     const [password, setPassword] = useState('');
     const history = useHistory();
 
@@ -20,11 +22,12 @@ function Create() {
     async function handleCadastro(e){
         e.preventDefault();
         try {
-            const senha = MD5(password);
+            let hash = Cryptojs.SHA256(password)
+            const senha = hash.toString(Cryptojs.enc.Base64);
             const response = await api.post('usuarios', {
                 nome,
                 idade,
-                dataNasc,
+                dataNascimento,
                 cidade,
                 estado,
                 email,

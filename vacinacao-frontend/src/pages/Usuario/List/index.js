@@ -43,7 +43,7 @@ function List() {
                   <td>{usuario.nome}</td>
                   <td>{usuario.idade}</td>
                   <td><Link to={`/usuarios/editar/${usuario.idUsuario}`}><MdEdit size={30} color="#2BA8EA"/></Link></td>
-                  <td><IoMdTrash size={30} color="#EE0000" onClick={() => handleDelete(usuario.idUsuario)}/></td>
+                  <td><IoMdTrash size={30} className="deleteButton" color="#EE0000" onClick={() => handleDelete(usuario.idUsuario)}/></td>
                 </tr>
               ))}
           </tbody>

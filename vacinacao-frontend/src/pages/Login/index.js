@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {useHistory} from 'react-router-dom';
-import MD5 from 'crypto-js/md5';
+import CryptoJS from 'crypto-js';
 import {
     Navbar, 
     NavbarBrand, 
@@ -14,16 +14,23 @@ import api from '../../services/api';
 import './style.css';
 
 function Login() {
-    const [Login, setLogin] = useState('');
+    const [email, setLogin] = useState('');
     const [Password, setPassword] = useState('');
     const history = useHistory();
     
     async function handleSubmit(e){
         e.preventDefault();
         try {
-            const senha = MD5(Password);
-            const response = await api.post('/login', {Login, senha})
-            if(response.data.user){
+            let hash = CryptoJS.SHA256(Password)
+            const senha = hash.toString(CryptoJS.enc.Base64);
+            
+            const response = await api.post('/login', {email, senha})
+            
+            if(response.data){
+                localStorage.setItem('nome', response.data.nome)
+                localStorage.setItem('id', response.data.idUsuario)
+                localStorage.setItem('type', response.data.tipo)
+                
                 history.push('/dashboard');
             }
         } catch (error) {

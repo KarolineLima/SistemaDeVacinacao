@@ -60,7 +60,7 @@ function Create() {
                     type="number" 
                     name="idade" 
                     id="idade" 
-                    placeholder="50"
+                    placeholder="90"
                     onChange={e=>setfaixaEtariaInicial(e.target.value)}
                     required 
                   />

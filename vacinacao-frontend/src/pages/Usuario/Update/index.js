@@ -9,21 +9,27 @@ import Header from '../../../components/Header';
 function Update() {
     const [nome, setNome] = useState('');
     const [idade, setIdade] = useState('');
-    const [dataNasc, setDataNasc] = useState('');
+    const [dataNascimento, setDataNasc] = useState('');
     const [cidade, setCidade] = useState('');
     const [estado, setEstado] = useState('');
     const [email, setEmail] = useState('');
     const [user, setUser] = useState();
     let data;
+    const [dataFormatada, setData] = useState();
     const {id} = useParams();
     const history = useHistory();
 
-    useEffect(async ()=>{
-        await api.get('usuarios/'.concat(id))
+    useEffect(()=>{
+        api.get('usuarios/'.concat(id))
         .then(response => {
-            setUser(response.data) 
-            console.log(user.dataNascimento)
-            console.log(moment(user.dataNascimento).toDate())
+            setNome(response.data.nome)
+            setIdade(response.data.idade)
+            setCidade(response.data.cidade)
+            setEstado(response.data.estado)
+            setEmail(response.data.nome)
+
+            data = moment(response.data.dataNascimento).toISOString().substr(0,10)
+            setDataNasc(data.toString())
         });
     }, [id]);
 
@@ -31,10 +37,10 @@ function Update() {
     async function handleCadastro(e){
         e.preventDefault();
         try {
-          const response = await api.post('usuarios', {
+          const response = await api.post('usuarios/editar/'.concat(id), {
               nome,
               idade,
-              dataNasc,
+              dataNascimento,
               cidade,
               estado,
               email
@@ -56,7 +62,7 @@ function Update() {
                         type="text" 
                         name="nome" 
                         id="nome"
-                        defaultValue={user?.nome || ''}
+                        defaultValue={nome}
                         onChange={e => setNome(e.target.value)}
                         required/>
                 </FormGroup>
@@ -66,7 +72,7 @@ function Update() {
                         type="number" 
                         name="idade" 
                         id="idade"
-                        defaultValue={user?.idade}
+                        defaultValue={idade}
                         onChange={e => setIdade(e.target.value)}
                         required/>
                 </FormGroup>
@@ -76,7 +82,7 @@ function Update() {
                         type="date" 
                         name="dataNasc" 
                         id="dataNasc"
-                        defaultValue={moment(user?.dataNascimento)}
+                        defaultValue={dataNascimento}
                         onChange={e => setDataNasc(e.target.value)}
                         required
                         />
@@ -87,7 +93,7 @@ function Update() {
                         type="text" 
                         name="cidade" 
                         id="cidade"
-                        defaultValue={user?.cidade}
+                        defaultValue={cidade}
                         onChange={e => setCidade(e.target.value)}
                         required/>
                 </FormGroup>
@@ -97,7 +103,7 @@ function Update() {
                         type="text" 
                         name="estado" 
                         id="estado"
-                        defaultValue={user?.estado}
+                        defaultValue={estado}
                         onChange={e => setEstado(e.target.value)}
                         required/>
                 </FormGroup>
@@ -107,7 +113,7 @@ function Update() {
                         type="email" 
                         name="email" 
                         id="email"
-                        defaultValue={user?.email}
+                        defaultValue={email}
                         onChange={e => setEmail(e.target.value)}
                         required/>
                 </FormGroup>

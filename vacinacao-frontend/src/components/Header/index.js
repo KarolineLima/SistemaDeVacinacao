@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { BsBoxArrowInRight } from 'react-icons/bs';
 import './style.css';
 import {
@@ -20,9 +20,15 @@ import {
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const Nome = localStorage.getItem('nome');
+  const history = useHistory();
 
   const toggle = () => setIsOpen(!isOpen);
 
+  function handleLogout(){
+    localStorage.clear();
+    history.push('/login')
+  }
   return (
     <div>
       <Navbar dark expand="md">
@@ -30,19 +36,16 @@ function Header() {
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink>Agendamento</NavLink>
-            </NavItem>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 Relatórios
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                  Usuários Vacinados
+                  <Link to="/relatorios/vacinados">Usuários Vacinados</Link>
                 </DropdownItem>
                 <DropdownItem>
-                  Usuários p/ Vacinar
+                  <Link to="/relatorios/vacinacao">Usuários p/ Vacinar</Link>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -88,9 +91,9 @@ function Header() {
 
           </Nav>
           <NavbarText>
-            Name
+            {Nome}
             <Button color="link" className="btn-logout">
-              <BsBoxArrowInRight size={20} color="#FFF"/>
+              <BsBoxArrowInRight size={20} color="#FFF" onClick={handleLogout}/>
             </Button>
           </NavbarText>
         </Collapse>
