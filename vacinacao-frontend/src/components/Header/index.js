@@ -32,20 +32,17 @@ function Header() {
   return (
     <div>
       <Navbar dark expand="md">
-        <NavbarBrand><h1>Vaccine</h1></NavbarBrand>
+        <NavbarBrand><h1><Link to="/">Vaccine</Link></h1></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                Relatórios
+                Vacinação
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                  <Link to="/relatorios/vacinados">Usuários Vacinados</Link>
-                </DropdownItem>
-                <DropdownItem>
-                  <Link to="/relatorios/vacinacao">Usuários p/ Vacinar</Link>
+                  <Link to="/vacinacao">Vacinações Cadastradas</Link>
                 </DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>

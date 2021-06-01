@@ -11,7 +11,7 @@ function Create() {
   const [intervalo, setIntervalo] = useState();
   const history = useHistory();
 
-  
+
   async function handleCadastro(e){
     e.preventDefault();
     try {
@@ -27,11 +27,11 @@ function Create() {
   }
   return (
     <>
-      <Header/>
+      {Header}
       <h1 className="text-center">Cadastrar Nova Vacina</h1>
       <Container fluid className="container-vacina">
-        <Form fluid onSubmit={handleCadastro} className="w-50">
-            <FormGroup row>
+        <Form fluid className="w-50">
+            <FormGroup row data-testeid="form-vacina">
                 <Label for="nomeVacina" sm={2}>Nome</Label>
                 <Input 
                   type="text" 
