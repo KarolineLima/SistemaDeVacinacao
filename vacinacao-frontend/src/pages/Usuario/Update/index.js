@@ -26,7 +26,7 @@ function Update() {
             setIdade(response.data.idade)
             setCidade(response.data.cidade)
             setEstado(response.data.estado)
-            setEmail(response.data.nome)
+            setEmail(response.data.email)
 
             data = moment(response.data.dataNascimento).toISOString().substr(0,10)
             setDataNasc(data.toString())
