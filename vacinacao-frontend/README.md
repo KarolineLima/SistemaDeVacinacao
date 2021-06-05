@@ -21,3 +21,7 @@ O comando yarn install tem o mesmo efeito.
 Ajuste o arquivo src/services/api.js com a url de onde se encontra o backend.
 
 Após isso basta roda o comando npm start ou yarn start e a aplicação será iniciada em localhost:3000.
+
+### Manual do Usuário
+
+https://github.com/KarolineLima/SistemaDeVacinacao/blob/main/Vaccine.pdf
