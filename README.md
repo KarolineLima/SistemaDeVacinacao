@@ -24,7 +24,8 @@ Por ser um pré cadastro não é possível repassar uma data certa para o usuár
 
 ### Manual do Usuário:
 
-https://github.com/KarolineLima/SistemaDeVacinacao/blob/main/Vaccine.pdf
+[Manual do usuário](https://github.com/KarolineLima/SistemaDeVacinacao/blob/main/Vaccine.pdf)
+
 ### Desenvolvido por:
 
 * **_[Karoline Lima](https://github.com/KarolineLima)_**
